@@ -3,6 +3,11 @@ import { Container, Typography } from "@material-ui/core";
 import { Formulario } from "./components/formulario/Formulario";
 
 function App() {
+
+  const aoEnviar = (dados) => {
+    console.log(dados);
+  }
+
   return (
     <Container maxWidth="sm">
       <Typography
@@ -12,7 +17,7 @@ function App() {
       >
         Formulário REACT
       </Typography>
-      <Formulario />
+      <Formulario aoEnviar={aoEnviar}/>
     </Container>
   );
 }
