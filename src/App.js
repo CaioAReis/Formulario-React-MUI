@@ -8,6 +8,13 @@ function App() {
     console.log(dados);
   }
 
+  const validateCPF = (cpf) => {
+    if (cpf.length !== 11) 
+      return {isValid: true, mensageError: "Campo CPF precisa ter 11 digitos"};
+    else 
+      return {isValid: false, mensageError: ""};
+  }
+
   return (
     <Container maxWidth="sm">
       <Typography
@@ -17,7 +24,10 @@ function App() {
       >
         Formulário REACT
       </Typography>
-      <Formulario aoEnviar={aoEnviar}/>
+      <Formulario 
+        aoEnviar={aoEnviar}
+        validateCPF={validateCPF}
+      />
     </Container>
   );
 }

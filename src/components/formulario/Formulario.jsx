@@ -1,93 +1,32 @@
+import { Typography } from '@material-ui/core';
 import React, { useState } from 'react';
-import {
-        Button, 
-        TextField, 
-        Switch,
-        FormControlLabel
-    } from '@material-ui/core';
+import { DadosEntrega } from './DadosEntrega';
+import { DadosPessoais } from './DadosPessoais';
+import { DadosUsuario } from './DadosUsuario';
 
-export const Formulario = ({ aoEnviar }) => {
+export const Formulario = ({ aoEnviar, validateCPF }) => {
 
-    const [formulario, setFormulario] = useState({
-        nome: '',
-        sobrenome: '',
-        cpf: '',
-        novidades: true,
-        promocoes: true
-    });
+    const [etapaAtual, setEtapaAtual] = useState(0);
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        aoEnviar(formulario);
+    const formularioAtual = (etapa) => {
+        switch (etapa) {
+            case 0: 
+                return <DadosUsuario />;
+            case 1:
+                return <DadosPessoais 
+                    aoEnviar={aoEnviar} 
+                    validateCPF={validateCPF} 
+                />
+            case 2:
+                return <DadosEntrega />
+            default:
+                return <Typography>Error</Typography>
+        }
     }
 
-    return(
-        <form onSubmit={(event) => handleSubmit(event)} >
-            <TextField 
-                id="nome" 
-                label="Nome" 
-                variant="outlined" 
-                fullWidth 
-                margin="normal"
-                value={formulario.nome}
-                onChange={e => {
-                    setFormulario(
-                        {...formulario, nome: e.target.value}
-                    )
-                }}
-            />
-            <TextField 
-                id="sobrenome" 
-                label="Sobrenome" 
-                variant="outlined" 
-                fullWidth 
-                margin="normal"
-                value={formulario.sobrenome}
-                onChange={e => 
-                    setFormulario({...formulario, sobrenome: e.target.value})
-                }
-            />
-            <TextField  
-                id="cpf" 
-                label="CPF" 
-                variant="outlined" 
-                fullWidth 
-                margin="normal"
-                value={formulario.cpf}
-                onChange={e => 
-                    setFormulario({...formulario, cpf: e.target.value})
-                }
-            />
-
-            <FormControlLabel control={
-                <Switch 
-                    name="novidades" 
-                    color="primary" 
-                    checked={formulario.novidades}
-                    onChange={e => 
-                        setFormulario(
-                            {...formulario, novidades: e.target.checked}
-                        )
-                    }
-                />
-            } label="Receber novidades?" />
-
-            <FormControlLabel control={
-                <Switch 
-                    name="promocoes" 
-                    color="primary" 
-                    checked={formulario.promocoes}
-                    onChange={e => 
-                        setFormulario(
-                            {...formulario, promocoes: e.target.checked}
-                        )
-                    }
-                />
-            } label="Receber promoções?" />
-            
-            <Button type="submit" variant="contained" color="primary">
-                Enviar
-            </Button>
-        </form>
+    return (
+        <>
+            {formularioAtual(etapaAtual)}
+        </>
     );
 }
