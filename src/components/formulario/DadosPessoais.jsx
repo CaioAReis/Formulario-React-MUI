@@ -9,7 +9,7 @@ import {
 
 export const DadosPessoais = ({ aoEnviar, validateCPF }) => {
 
-    const [formulario, setFormulario] = useState({
+    const [form, setForm] = useState({
         nome: '',
         sobrenome: '',
         cpf: '',
@@ -24,22 +24,20 @@ export const DadosPessoais = ({ aoEnviar, validateCPF }) => {
         }
     });
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        aoEnviar(formulario);
-    }
-
     return(
-        <form onSubmit={(event) => handleSubmit(event)} >
+        <form onSubmit={e => {
+            e.preventDefault();
+            aoEnviar(form);
+        }}>
             <TextField 
                 id="nome" 
                 label="Nome" 
                 variant="outlined" 
                 fullWidth 
                 margin="normal"
-                value={formulario.nome}
+                value={form.nome}
                 onChange={e => 
-                    setFormulario({...formulario, nome: e.target.value})
+                    setForm({...form, nome: e.target.value})
                 }
             />
             <TextField 
@@ -48,9 +46,9 @@ export const DadosPessoais = ({ aoEnviar, validateCPF }) => {
                 variant="outlined" 
                 fullWidth 
                 margin="normal"
-                value={formulario.sobrenome}
+                value={form.sobrenome}
                 onChange={e => 
-                    setFormulario({...formulario, sobrenome: e.target.value})
+                    setForm({...form, sobrenome: e.target.value})
                 }
             />
             <TextField  
@@ -61,13 +59,13 @@ export const DadosPessoais = ({ aoEnviar, validateCPF }) => {
                 helperText={error.cpf.mensageError}
                 fullWidth 
                 margin="normal"
-                value={formulario.cpf}
+                value={form.cpf}
                 onBlur={e => {
                     const validacao = validateCPF(e.target.value);
                     setError({cpf: validacao});
                 }}
                 onChange={e => 
-                    setFormulario({...formulario, cpf: e.target.value})
+                    setForm({...form, cpf: e.target.value})
                 }
             />
 
@@ -75,10 +73,10 @@ export const DadosPessoais = ({ aoEnviar, validateCPF }) => {
                 <Switch 
                     name="novidades" 
                     color="primary" 
-                    checked={formulario.novidades}
+                    checked={form.novidades}
                     onChange={e => 
-                        setFormulario(
-                            {...formulario, novidades: e.target.checked}
+                        setForm(
+                            {...form, novidades: e.target.checked}
                         )
                     }
                 />
@@ -88,17 +86,17 @@ export const DadosPessoais = ({ aoEnviar, validateCPF }) => {
                 <Switch 
                     name="promocoes" 
                     color="primary" 
-                    checked={formulario.promocoes}
+                    checked={form.promocoes}
                     onChange={e => 
-                        setFormulario(
-                            {...formulario, promocoes: e.target.checked}
+                        setForm(
+                            {...form, promocoes: e.target.checked}
                         )
                     }
                 />
             } label="Receber promoções?" />
             
             <Button type="submit" variant="contained" color="primary">
-                Enviar
+                Próximo
             </Button>
         </form>
     );

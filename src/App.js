@@ -1,4 +1,4 @@
-
+import React from 'react';
 import { Container, Typography } from "@material-ui/core";
 import { Formulario } from "./components/formulario/Formulario";
 
