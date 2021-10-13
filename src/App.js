@@ -1,6 +1,8 @@
 import React from 'react';
-import { Container, Typography } from "@material-ui/core";
+
+import { Container, Typography, Box } from "@material-ui/core";
 import { Formulario } from "./components/formulario/Formulario";
+import img from './assets/img.png';
 
 function App() {
 
@@ -8,27 +10,34 @@ function App() {
     console.log(dados);
   }
 
-  const validateCPF = (cpf) => {
-    if (cpf.length !== 11) 
-      return {isValid: true, mensageError: "Campo CPF precisa ter 11 digitos"};
-    else 
-      return {isValid: false, mensageError: ""};
-  }
-
   return (
-    <Container maxWidth="sm">
-      <Typography
-        variant="h3" 
-        component="h1" 
-        align="center"
-      >
-        Formulário REACT
-      </Typography>
-      <Formulario 
-        aoEnviar={aoEnviar}
-        validateCPF={validateCPF}
-      />
-    </Container>
+    <Box sx={{
+      height: '100vh',
+      width: '100%',
+      display: 'flex', 
+      alignItems: 'center'
+    }}>
+      <Box sx={{
+        height: '100vh', 
+        width: '50%',
+        display: 'flex', 
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: '#3f51b5'
+      }}>
+        <img src={img} alt="" width={500} />
+      </Box>
+      <Container maxWidth="sm" >
+        <Typography 
+          variant="h3" 
+          component="h1" 
+          align="center" 
+          style={{marginBottom: 40}}>
+            Formulário Material UI
+        </Typography>
+        <Formulario aoEnviar={aoEnviar}/>
+      </Container>
+    </Box>
   );
 }
 

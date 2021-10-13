@@ -1,13 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import ValidacoesCadastro from '../../context/ValidacoesCadastro';
 
 import {
         Button, 
         TextField, 
         Switch,
         FormControlLabel
-    } from '@material-ui/core';
+} from '@material-ui/core';
+import { useErros } from '../../hooks/useErros';
 
-export const DadosPessoais = ({ aoEnviar, validateCPF }) => {
+export const DadosPessoais = ({ aoEnviar }) => {
 
     const [form, setForm] = useState({
         nome: '',
@@ -17,31 +19,34 @@ export const DadosPessoais = ({ aoEnviar, validateCPF }) => {
         promocoes: true
     });
 
-    const [error, setError] = useState({
-        cpf: {
-            isValid: false, 
-            mensageError: ""
-        }
-    });
+    const validacoes = useContext(ValidacoesCadastro);
+    const [error, validarCampos, possoEnviar] = useErros(validacoes);
 
     return(
         <form onSubmit={e => {
             e.preventDefault();
-            aoEnviar(form);
+            if (possoEnviar()) {
+                aoEnviar(form);
+            }
         }}>
             <TextField 
                 id="nome" 
+                name='nome'
                 label="Nome" 
                 variant="outlined" 
+                error={error.nome.isValid}
+                helperText={error.nome.mensageError}
                 fullWidth 
                 margin="normal"
                 value={form.nome}
                 onChange={e => 
                     setForm({...form, nome: e.target.value})
                 }
+                onBlur={validarCampos}
             />
             <TextField 
                 id="sobrenome" 
+                name='sobrenome'
                 label="Sobrenome" 
                 variant="outlined" 
                 fullWidth 
@@ -53,6 +58,7 @@ export const DadosPessoais = ({ aoEnviar, validateCPF }) => {
             />
             <TextField  
                 id="cpf" 
+                name='cpf'
                 label="CPF" 
                 variant="outlined" 
                 error={error.cpf.isValid}
@@ -60,10 +66,7 @@ export const DadosPessoais = ({ aoEnviar, validateCPF }) => {
                 fullWidth 
                 margin="normal"
                 value={form.cpf}
-                onBlur={e => {
-                    const validacao = validateCPF(e.target.value);
-                    setError({cpf: validacao});
-                }}
+                onBlur={validarCampos}
                 onChange={e => 
                     setForm({...form, cpf: e.target.value})
                 }
