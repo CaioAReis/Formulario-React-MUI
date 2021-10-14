@@ -15,7 +15,7 @@ function App() {
       height: '100vh',
       width: '100%',
       display: 'flex', 
-      alignItems: 'center'
+      alignItems: 'center',
     }}>
       <Box sx={{
         height: '100vh', 
@@ -32,7 +32,7 @@ function App() {
           variant="h3" 
           component="h1" 
           align="center" 
-          style={{marginBottom: 40}}>
+          style={{marginBottom: 20}}>
             Formulário Material UI
         </Typography>
         <Formulario aoEnviar={aoEnviar}/>
