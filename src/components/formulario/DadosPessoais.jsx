@@ -104,6 +104,8 @@ export const DadosPessoais = ({ aoEnviar }) => {
                 <TextField 
                     name='nascimento'
                     fullWidth
+                    error={error.nascimento.isValid}
+                    helperText={error.nascimento.mensageError}
                     type='date'
                     variant="outlined" 
                     margin="normal"
@@ -112,6 +114,7 @@ export const DadosPessoais = ({ aoEnviar }) => {
                     onChange={e => 
                         setForm({...form, nascimento: e.target.value})
                     }
+                    onBlur={validarCampos}
                 />
             </Box>
 

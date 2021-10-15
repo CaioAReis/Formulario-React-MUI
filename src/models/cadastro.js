@@ -1,3 +1,4 @@
+import { differenceInCalendarYears  } from 'date-fns';
 
 const validateCPF = (cpf) => {
     if (cpf.length !== 11) 
@@ -25,4 +26,15 @@ const validateNome = (nome) => {
     else return { isValid: false, mensageError: "" };
 }
 
-export { validateCPF, validateSenha, validateNome };
+const validateData = (data) => {
+
+  const idade = differenceInCalendarYears(new Date(), new Date(data));
+  if (idade < 18) {
+    return {
+      isValid: true,
+      mensageError: 'A idade mínima deve ser de 18 anos.'
+    }
+  } else return { isValid: false, mensageError: "" }
+}
+
+export { validateCPF, validateSenha, validateNome, validateData };
