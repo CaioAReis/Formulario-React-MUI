@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Step, StepLabel, Stepper, Typography } from '@material-ui/core';
+import { Step, StepLabel, Stepper } from '@material-ui/core';
 
 import { DadosEntrega } from './DadosEntrega';
 import { DadosPessoais } from './DadosPessoais';
 import { DadosUsuario } from './DadosUsuario';
+import { ThanksScreen } from './ThanksScreen';
 
 export const Formulario = ({ aoEnviar }) => {
 
@@ -26,7 +27,7 @@ export const Formulario = ({ aoEnviar }) => {
         <DadosUsuario aoEnviar={coletarDados}/>,
         <DadosPessoais aoEnviar={coletarDados}/>,
         <DadosEntrega aoEnviar={coletarDados} />,
-        <Typography variant='h5'>Obrigado pelo cadastro!!</Typography> 
+        <ThanksScreen />
     ];
 
     return (

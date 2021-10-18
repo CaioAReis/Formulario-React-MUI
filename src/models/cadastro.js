@@ -37,4 +37,12 @@ const validateData = (data) => {
   } else return { isValid: false, mensageError: "" }
 }
 
-export { validateCPF, validateSenha, validateNome, validateData };
+const validateCEP = (cep) => {
+  if (cep.length !== 8) {
+    return {
+      isValid: true, mensageError: 'CEP deve conter 8 dígitos!'
+    } 
+  } else return { isValid: false, mensageError: '' }
+}
+
+export { validateCPF, validateSenha, validateNome, validateData, validateCEP };

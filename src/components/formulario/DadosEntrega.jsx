@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Button, TextField } from '@material-ui/core';
+import ValidacoesCadastro from '../../context/ValidacoesCadastro';
+import { useErros } from '../../hooks/useErros';
 
 export const DadosEntrega = ({ aoEnviar }) => {
 
@@ -11,10 +13,15 @@ export const DadosEntrega = ({ aoEnviar }) => {
         cidade: ''
     });
 
+    const validacoes = useContext(ValidacoesCadastro);
+    const [error, validarCampos, possoEnviar] = useErros(validacoes);
+
     return (
         <form onSubmit={e => {
             e.preventDefault();
-            aoEnviar(form);
+            if (possoEnviar()) {
+                aoEnviar(form);
+            }
         }}>
             <TextField 
                 value={form.cep}
@@ -22,8 +29,26 @@ export const DadosEntrega = ({ aoEnviar }) => {
                     setForm({...form, cep: e.target.value})
                 }
                 id='cep'
+                name='cep'
                 label='CEP'
                 type='number'
+                variant='outlined'
+                margin='normal'
+                error={error.cep.isValid}
+                helperText={error.cep.mensageError}
+                onBlur={validarCampos}
+                style={{marginRight: 30}}
+            />
+
+            <TextField 
+                value={form.cidade}
+                onChange={e => 
+                    setForm({...form, cidade: e.target.value})
+                }
+                id='cidade'
+                name='cidade'
+                label='Cidade'
+                type='text'
                 variant='outlined'
                 margin='normal'
             />
@@ -34,6 +59,7 @@ export const DadosEntrega = ({ aoEnviar }) => {
                     setForm({...form, endereco: e.target.value})
                 }
                 id='endereco'
+                name='endereco'
                 label='Endereço'
                 type='text'
                 variant='outlined'
@@ -47,10 +73,12 @@ export const DadosEntrega = ({ aoEnviar }) => {
                     setForm({...form, numero: e.target.value})
                 }
                 id='numero'
+                name='numero'
                 label='Número'
                 type='number'
                 variant='outlined'
                 margin='normal'
+                style={{marginRight: 30}}
             />
 
             <TextField 
@@ -65,23 +93,12 @@ export const DadosEntrega = ({ aoEnviar }) => {
                 margin='normal'
             />
 
-            <TextField 
-                value={form.cidade}
-                onChange={e => 
-                    setForm({...form, cidade: e.target.value})
-                }
-                id='cidade'
-                label='Cidade'
-                type='text'
-                variant='outlined'
-                margin='normal'
-            />
-
             <Button 
                 type='submit' 
                 variant='contained' 
                 color='primary' 
                 fullWidth
+                style={{marginTop: 30}}
             >
                 Finalizar cadastro
             </Button>
