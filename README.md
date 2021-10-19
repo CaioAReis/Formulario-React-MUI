@@ -1,6 +1,6 @@
 # Formulário REACT com Material UI
 
-<img src="src/assets/Print.png" alt="Print">
+<img src="src/assets/Print.PNG" alt="Print">
 
 > Praticando a criação de formulários com React JS utilizando a biblioteca Material UI.
 
